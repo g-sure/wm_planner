@@ -72,6 +72,56 @@ body {
 .section .title,
 .section-intro { text-align: center; }
 
+.workflow-steps {
+  counter-reset: workflow;
+  display: grid;
+  gap: 0.85rem;
+  list-style: none;
+  margin: 1.75rem auto 0;
+  max-width: 40rem;
+  padding: 0;
+  text-align: left;
+}
+
+.workflow-steps li {
+  background: var(--project-surface);
+  border: 1px solid var(--project-border);
+  border-radius: 0.75rem;
+  counter-increment: workflow;
+  padding: 0.95rem 1rem 1rem 4.1rem;
+  position: relative;
+}
+
+.workflow-steps li::before {
+  align-items: center;
+  background: var(--project-accent);
+  border-radius: 999px;
+  color: #fff;
+  content: counter(workflow);
+  display: flex;
+  font-weight: 700;
+  height: 1.85rem;
+  justify-content: center;
+  left: 1rem;
+  position: absolute;
+  top: 1rem;
+  width: 1.85rem;
+}
+
+.workflow-steps h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 0.2rem;
+}
+
+.workflow-steps h3 a:hover { text-decoration: underline; }
+
+.workflow-steps p {
+  color: var(--project-text-muted);
+  margin: 0;
+}
+
 .section-intro {
   color: var(--project-text-muted);
   margin: -0.75rem auto 2rem;
@@ -138,6 +188,31 @@ body {
   padding: 2rem;
   text-align: center;
 }
+
+
+.table-scroll { overflow-x: auto; }
+.results-table table {
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  width: 100%;
+}
+.results-table th,
+.results-table td {
+  border-bottom: 1px solid var(--project-border);
+  padding: 0.45rem 0.55rem;
+  text-align: center;
+}
+.results-table th { font-weight: 700; }
+.results-table thead tr:first-child th:first-child,
+.results-table td:first-child { text-align: left; }
+.results-table figcaption,
+.table-note {
+  color: var(--project-text-muted);
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
 
 .module-placeholder p {
   font-size: 1.15rem;

@@ -45,11 +45,45 @@
     },
     {
       "type": "content",
+      "id": "abstract",
+      "title": "Abstract",
+      "paragraphs": [
+        "Robot learning in simulation has enabled successful transfer to the real world. Yet \"real\" often means deployment in a controlled environment, whereas \"field\" deployment exposes a larger reality gap as sites and operating conditions change. We study this distinction in long-horizon navigation using a digital twin of a controlled physical site, simulation-trained predictive representations, and zero-shot physical deployment. Our action-conditioned World Model evaluates candidate trajectories through latent imagination within a shared hierarchical navigation stack. Preliminary trials show lower reference trajectory error for the World Model in the controlled setting, but no corresponding field advantage and substantially lower success rate for path generation than A*."
+      ]
+    },
+    {
+      "type": "content",
       "id": "workflow",
       "title": "Project workflow",
       "paragraphs": [
-        "Prepare episodes from recorded sensor data, select a world-model architecture, train and evaluate it, then use the ROS 2 wrapper to run the planner with a checkpoint.",
-        "The documentation covers setup, data preparation, model architecture, training, and the ROS 2 interface."
+        "Prepare episodes from recorded sensor data, select a world-model architecture, train and evaluate it, then use the ROS 2 wrapper to run the planner with a checkpoint."
+      ],
+      "steps": [
+        {
+          "title": "Set up the workspace",
+          "text": "Install the Python environment and build the ROS 2 wrapper.",
+          "link": {"url": "./docs/getting_started.html"}
+        },
+        {
+          "title": "Prepare episodes",
+          "text": "Turn recorded sensor data into fixed-length episodes for training.",
+          "link": {"url": "./docs/data_pipeline.html"}
+        },
+        {
+          "title": "Choose a world model",
+          "text": "Select an architecture and how observations become latent predictions.",
+          "link": {"url": "./docs/world_model.html"}
+        },
+        {
+          "title": "Train and evaluate",
+          "text": "Train the selected model and check it with the evaluation examples.",
+          "link": {"url": "./docs/training.html"}
+        },
+        {
+          "title": "Run the planner",
+          "text": "Load a checkpoint in the ROS 2 wrapper and run the planner.",
+          "link": {"url": "./docs/ros2.html"}
+        }
       ]
     },
     {
@@ -71,6 +105,52 @@
           "caption": "Constant-time frame samples from a Spot navigation rollout in Isaac Sim."
         }
       ]
+    },
+    {
+      "type": "table",
+      "id": "results-table",
+      "title": "Preliminary Results",
+      "paragraphs": [
+        "In the controlled setting, WM has the lowest ATE but requires more interventions than A* (7 versus 5). That reference-path advantage does not persist in the field. WM also supplies MRP paths half as often as A*. The table shows the quantitative results, and Planner comparison in a difficult building scenario shows the qualitative failure cases."
+      ],
+      "table": {
+        "caption": "Trajectory error and run outcomes for the real and field trials.",
+        "note": "Bold represents the best value across planner configurations.",
+        "headers": [
+          {"label": "Planner"},
+          {"label": "ATE RMSE (m) ↓", "columns": ["Real", "Field"]},
+          {"label": "Mean error (m) ↓", "columns": ["Real", "Field"]},
+          {"label": "Interventions ↓", "columns": ["Real", "Field"]},
+          {"label": "Avg. speed (m/s)", "columns": ["Real", "Field"]},
+          {"label": "Success rate (%) ↑"}
+        ],
+        "rows": [
+          [
+            {"text": "WM"},
+            {"text": "8.45", "best": true}, {"text": "16.55"},
+            {"text": "6.97", "best": true}, {"text": "13.86"},
+            {"text": "7"}, {"text": "7"},
+            {"text": "0.7"}, {"text": "1.0"},
+            {"text": "55.24"}
+          ],
+          [
+            {"text": "A*"},
+            {"text": "11.79"}, {"text": "16.32"},
+            {"text": "10.29"}, {"text": "12.73"},
+            {"text": "5", "best": true}, {"text": "1"},
+            {"text": "0.9", "best": true}, {"text": "1.0"},
+            {"text": "96.94", "best": true}
+          ],
+          [
+            {"text": "Null"},
+            {"text": "9.54"}, {"text": "12.74", "best": true},
+            {"text": "8.73"}, {"text": "9.07", "best": true},
+            {"text": "10"}, {"text": "0", "best": true},
+            {"text": "0.8"}, {"text": "1.6", "best": true},
+            {"text": "--"}
+          ]
+        ]
+      }
     },
     {
       "type": "media",

@@ -218,7 +218,8 @@ def render_media_section(section: dict[str, Any]) -> str:
         caption = item.get("caption", "")
         caption_html = f"<figcaption>{esc(caption)}</figcaption>" if caption else ""
         cards.append(f'<figure class="media-card">{render_media(item)}{caption_html}</figure>')
-    body = f'<div class="media-grid">{"".join(cards)}</div>' if cards else placeholder("Media coming soon")
+    layout = section.get("layout", "default")
+    body = f'<div class="media-grid media-grid--{esc(layout)}">{"".join(cards)}</div>' if cards else placeholder("Media coming soon")
     return section_shell(section, body)
 
 

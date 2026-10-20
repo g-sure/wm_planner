@@ -237,6 +237,13 @@
         "description": {
           "type": "string"
         },
+        "layout": {
+          "enum": [
+            "stacked",
+            "paired",
+            "planner-matrix"
+          ]
+        },
         "media": {
           "$ref": "#/$defs/media"
         },

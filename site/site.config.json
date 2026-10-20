@@ -25,6 +25,16 @@
   ],
   "sections": [
     {
+      "type": "teaser",
+      "id": "teaser",
+      "media": {
+        "type": "image",
+        "src": "./static/images/wm-planner-teaser.jpg",
+        "alt": "Overview of simulation-informed world-model and hierarchical robot-navigation planning."
+      },
+      "caption": "Simulated trajectories train predictive representations and learning-based planners, while mapped waypoints guide graph-based planning and downstream control."
+    },
+    {
       "type": "content",
       "id": "overview",
       "title": "Overview",
@@ -40,6 +50,167 @@
       "paragraphs": [
         "Prepare episodes from recorded sensor data, select a world-model architecture, train and evaluate it, then use the ROS 2 wrapper to run the planner with a checkpoint.",
         "The documentation covers setup, data preparation, model architecture, training, and the ROS 2 interface."
+      ]
+    },
+    {
+      "type": "media",
+      "id": "architecture-and-simulation",
+      "title": "World model and simulation",
+      "layout": "stacked",
+      "items": [
+        {
+          "type": "image",
+          "src": "./static/images/world-model-architecture.png",
+          "alt": "Diagram of the world-model planner, from visual and proprioceptive encoders through latent rollouts to local trajectory planning.",
+          "caption": "Observation and proprioceptive encoders form a fused latent state; model-predictive rollouts evaluate subgoals for local trajectory planning."
+        },
+        {
+          "type": "image",
+          "src": "./static/images/isaac-sim-spot-rollout.png",
+          "alt": "Six time-sampled frames from a Spot robot navigation rollout in simulation.",
+          "caption": "Constant-time frame samples from a Spot navigation rollout in Isaac Sim."
+        }
+      ]
+    },
+    {
+      "type": "media",
+      "id": "dinov2-features",
+      "title": "DINOv2 visual features",
+      "description": "Each panel shows route frames, PCA features mapped to RGB, and patch-level cosine similarity.",
+      "layout": "paired",
+      "items": [
+        {
+          "type": "image",
+          "src": "./static/images/dinov2-failed-run-features.jpg",
+          "alt": "DINOv2 visual feature panels for a failed run, with input frames, PCA features, and similarity maps.",
+          "caption": "Failed run"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/dinov2-teleoperated-features.jpg",
+          "alt": "DINOv2 visual feature panels for a tele-operated run, with input frames, PCA features, and similarity maps.",
+          "caption": "Tele-operated run"
+        }
+      ]
+    },
+    {
+      "type": "media",
+      "id": "dinov3-features",
+      "title": "DINOv3 visual features",
+      "description": "Each panel shows route frames, PCA features mapped to RGB, and patch-level cosine similarity.",
+      "layout": "paired",
+      "items": [
+        {
+          "type": "image",
+          "src": "./static/images/dinov3-failed-run-features.jpg",
+          "alt": "DINOv3 visual feature panels for a failed run, with input frames, PCA features, and similarity maps.",
+          "caption": "Failed run"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/dinov3-teleoperated-features.jpg",
+          "alt": "DINOv3 visual feature panels for a tele-operated run, with input frames, PCA features, and similarity maps.",
+          "caption": "Tele-operated run"
+        }
+      ]
+    },
+    {
+      "type": "media",
+      "id": "planner-failure-comparison",
+      "title": "Planner comparison in a difficult building scenario",
+      "description": "The three rows compare the world model, A*, and a no-motion baseline at increasing times. Green marks the robot, blue lines show mid-range planned paths, and red segments show short-range MPPI trajectories.",
+      "layout": "planner-matrix",
+      "items": [
+        {
+          "type": "image",
+          "src": "./static/images/building-wm-t0.png",
+          "alt": "World-model planner state at 0 seconds in the building failure case.",
+          "caption": "World model · 0 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-wm-t5.png",
+          "alt": "World-model planner state at 5 seconds in the building failure case.",
+          "caption": "World model · 5 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-wm-t10.png",
+          "alt": "World-model planner state at 10 seconds in the building failure case.",
+          "caption": "World model · 10 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-wm-t20.png",
+          "alt": "World-model planner state at 20 seconds in the building failure case.",
+          "caption": "World model · 20 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-wm-t30.png",
+          "alt": "World-model planner state at 30 seconds in the building failure case.",
+          "caption": "World model · 30 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-astar-t0.png",
+          "alt": "A-star planner state at 0 seconds in the building failure case.",
+          "caption": "A* · 0 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-astar-t5.png",
+          "alt": "A-star planner state at 5 seconds in the building failure case.",
+          "caption": "A* · 5 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-astar-t10.png",
+          "alt": "A-star planner state at 10 seconds in the building failure case.",
+          "caption": "A* · 10 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-astar-t20.png",
+          "alt": "A-star planner state at 20 seconds in the building failure case.",
+          "caption": "A* · 20 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-astar-t30.png",
+          "alt": "A-star planner state at 30 seconds in the building failure case.",
+          "caption": "A* · 30 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-null-t0.png",
+          "alt": "No-motion baseline state at 0 seconds in the building failure case.",
+          "caption": "No motion · 0 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-null-t5.png",
+          "alt": "No-motion baseline state at 5 seconds in the building failure case.",
+          "caption": "No motion · 5 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-null-t10.png",
+          "alt": "No-motion baseline state at 10 seconds in the building failure case.",
+          "caption": "No motion · 10 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-null-t20.png",
+          "alt": "No-motion baseline state at 20 seconds in the building failure case.",
+          "caption": "No motion · 20 s"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/building-null-t30.png",
+          "alt": "No-motion baseline state at 30 seconds in the building failure case.",
+          "caption": "No motion · 30 s"
+        }
       ]
     }
   ],

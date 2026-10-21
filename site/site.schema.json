@@ -242,7 +242,8 @@
           "enum": [
             "stacked",
             "paired",
-            "planner-matrix"
+            "planner-matrix",
+            "synced-stack"
           ]
         },
         "media": {

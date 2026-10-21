@@ -136,6 +136,25 @@ body {
 
 .media-grid--stacked { grid-template-columns: minmax(0, 1fr); }
 
+.media-grid--synced-stack {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.media-grid--synced-stack .media-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.media-grid--synced-stack .media-card img,
+.media-grid--synced-stack .media-card video {
+  aspect-ratio: 480 / 280;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  width: 30vw;
+}
+
 .media-grid--paired {
   align-items: start;
   grid-template-columns: repeat(2, minmax(0, 1fr));

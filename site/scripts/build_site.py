@@ -187,20 +187,24 @@ def placeholder(label: str) -> str:
     )
 
 
-def render_media(media: dict[str, Any], *, eager: bool = False) -> str:
+def render_media(media: dict[str, Any], *, eager: bool = False, synced: bool = False) -> str:
     kind = media.get("type", "image")
     src = media.get("src", "")
     if not src:
         return placeholder(f"{kind.title()} asset coming soon")
     if kind == "image":
-        loading = "eager" if eager else "lazy"
+        loading = "eager" if eager or synced else "lazy"
         return f'<img src="{esc(src)}" alt="{esc(media.get("alt", ""))}" loading="{loading}">'
     if kind == "video":
-        controls = " controls" if media.get("controls", False) else ""
+        controls = " controls" if media.get("controls", synced) else ""
         poster = f' poster="{esc(media["poster"])}"' if media.get("poster") else ""
         mime = {".webm": "video/webm", ".ogv": "video/ogg"}.get(Path(urlsplit(src).path).suffix, "video/mp4")
+        # Synced clips share one timeline in the page script. Native loop would
+        # restart a shorter clip while the others are still playing.
+        loop = "" if synced else " loop"
+        preload = ' preload="auto"' if synced else ""
         return (
-            f'<video autoplay muted loop playsinline{controls}{poster} '
+            f'<video autoplay muted playsinline{loop}{preload}{controls}{poster} '
             f'aria-label="{esc(media.get("alt", "Video"))}">'
             f'<source src="{esc(src)}" type="{esc(media.get("mime", mime))}">'
             "Your browser does not support HTML video.</video>"
@@ -270,13 +274,21 @@ def render_content(section: dict[str, Any]) -> str:
 
 
 def render_media_section(section: dict[str, Any]) -> str:
+    layout = section.get("layout", "default")
+    synced = layout == "synced-stack"
     cards: list[str] = []
     for item in section.get("items", []):
         caption = item.get("caption", "")
         caption_html = f"<figcaption>{esc(caption)}</figcaption>" if caption else ""
-        cards.append(f'<figure class="media-card">{render_media(item)}{caption_html}</figure>')
-    layout = section.get("layout", "default")
-    body = f'<div class="media-grid media-grid--{esc(layout)}">{"".join(cards)}</div>' if cards else placeholder("Media coming soon")
+        cards.append(
+            f'<figure class="media-card">{render_media(item, synced=synced)}{caption_html}</figure>'
+        )
+    body = (
+        f'<div class="media-grid media-grid--{esc(layout)}"'
+        f'{" data-sync-gifs" if synced else ""}>{"".join(cards)}</div>'
+        if cards
+        else placeholder("Media coming soon")
+    )
     return section_shell(section, body)
 
 

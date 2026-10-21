@@ -37,5 +37,32 @@ async function mountInteractiveApp(container) {
   }
 }
 
+function startSyncedGifs(container) {
+  const images = [...container.querySelectorAll('img')];
+  if (images.length < 2) return;
+  const sources = images.map((image) => image.getAttribute('src'));
+  if (sources.some((src) => !src)) return;
+
+  images.forEach((image) => {
+    image.style.visibility = 'hidden';
+  });
+
+  const ready = images.map((image) => (
+    typeof image.decode === 'function' ? image.decode().catch(() => {}) : Promise.resolve()
+  ));
+  Promise.all(ready).then(() => {
+    images.forEach((image) => {
+      image.removeAttribute('src');
+    });
+    images.forEach((image, index) => {
+      image.src = sources[index];
+    });
+    images.forEach((image) => {
+      image.style.visibility = '';
+    });
+  });
+}
+
 honorReducedMotion();
+document.querySelectorAll('[data-sync-gifs]').forEach(startSyncedGifs);
 document.querySelectorAll('.interactive-app').forEach(mountInteractiveApp);

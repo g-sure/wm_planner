@@ -154,6 +154,33 @@
     },
     {
       "type": "media",
+      "id": "planner-recordings",
+      "title": "Planner recordings",
+      "description": "The world model, A*, and Null play together on one timeline. Each row is a landscape recording.",
+      "layout": "synced-stack",
+      "items": [
+        {
+          "type": "image",
+          "src": "./static/images/WM%20Trimmed.gif",
+          "alt": "Landscape recording of the world-model planner.",
+          "caption": "World Model Planner"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/A%20star%20trimmed.gif",
+          "alt": "Landscape recording of the A* planner.",
+          "caption": "A star planner"
+        },
+        {
+          "type": "image",
+          "src": "./static/images/Null%20Trimmed.gif",
+          "alt": "Landscape recording of the Null planner.",
+          "caption": "Null Planner - No Mid range planner"
+        }
+      ]
+    },
+    {
+      "type": "media",
       "id": "dinov2-features",
       "title": "DINOv2 visual features",
       "description": "Each panel shows route frames, PCA features mapped to RGB, and patch-level cosine similarity.",

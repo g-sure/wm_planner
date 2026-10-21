@@ -41,25 +41,25 @@ function startSyncedGifs(container) {
   const images = [...container.querySelectorAll('img')];
   if (images.length < 2) return;
   const sources = images.map((image) => image.getAttribute('src'));
-  if (sources.some((src) => !src)) return;
+  // Keep the authored relative paths. An absolute or root path would miss
+  // the project prefix on GitHub Pages.
+  if (sources.some((src) => !src || /^(?:[a-z][a-z0-9+.-]*:|\/)/i.test(src))) return;
 
+  let pending = images.length;
+  let failed = false;
+  const finished = (ok) => {
+    if (!ok) failed = true;
+    pending -= 1;
+    if (pending > 0 || failed) return;
+    images.forEach((image) => image.setAttribute('src', ''));
+    images.forEach((image, index) => image.setAttribute('src', sources[index]));
+  };
   images.forEach((image) => {
-    image.style.visibility = 'hidden';
-  });
-
-  const ready = images.map((image) => (
-    typeof image.decode === 'function' ? image.decode().catch(() => {}) : Promise.resolve()
-  ));
-  Promise.all(ready).then(() => {
-    images.forEach((image) => {
-      image.removeAttribute('src');
-    });
-    images.forEach((image, index) => {
-      image.src = sources[index];
-    });
-    images.forEach((image) => {
-      image.style.visibility = '';
-    });
+    if (image.complete && image.naturalWidth > 0) finished(true);
+    else {
+      image.addEventListener('load', () => finished(true), { once: true });
+      image.addEventListener('error', () => finished(false), { once: true });
+    }
   });
 }
 

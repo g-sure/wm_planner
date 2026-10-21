@@ -156,7 +156,7 @@
       "type": "media",
       "id": "planner-recordings",
       "title": "Planner recordings",
-      "description": "The world model, A*, and Null play together on one timeline. Each row is a landscape recording.",
+      "description": "The world model, A*, and Null play together on one timeline for one subgoal respectively.",
       "layout": "synced-stack",
       "items": [
         {

@@ -137,22 +137,29 @@ body {
 .media-grid--stacked { grid-template-columns: minmax(0, 1fr); }
 
 .media-grid--synced-stack {
-  grid-template-columns: minmax(0, 1fr);
+  box-sizing: border-box;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  left: 50%;
+  margin-left: -32.5vw;
+  padding-inline: 0.75rem;
+  position: relative;
+  width: 65vw;
 }
 
 .media-grid--synced-stack .media-card {
-  align-items: center;
+  align-items: stretch;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .media-grid--synced-stack .media-card img,
 .media-grid--synced-stack .media-card video {
   aspect-ratio: 480 / 280;
   height: auto;
-  max-width: 100%;
   object-fit: contain;
-  width: 30vw;
+  width: 100%;
 }
 
 .media-grid--paired {

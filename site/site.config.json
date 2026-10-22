@@ -163,7 +163,7 @@
           "type": "image",
           "src": "./static/images/WM%20Trimmed.gif",
           "alt": "Landscape recording of the world-model planner.",
-          "caption": "World Model Planner"
+          "caption": "World model planner"
         },
         {
           "type": "image",
@@ -175,7 +175,7 @@
           "type": "image",
           "src": "./static/images/Null%20Trimmed.gif",
           "alt": "Landscape recording of the Null planner.",
-          "caption": "Null Planner"
+          "caption": "Null planner"
         }
       ]
     },
